@@ -14,8 +14,9 @@ function App(): JSX.Element {
   );
   const navigate = useNavigate();
   return (
-    <>
+    <div className="fullpage">
       <img
+        className="title-image"
         alt="tip of the old block text in blue bubble writing"
         src="logo.png"
       />
@@ -38,7 +39,7 @@ function App(): JSX.Element {
           element={<Total settings={settings} values={values} />}
         />
       </Routes>
-    </>
+    </div>
   );
 }
 
