@@ -29,7 +29,7 @@ export function IndexPage({
       });
     }
     fetchSettings(dispatch);
-  }, []);
+  }, [dispatch]);
   return (
     <>
       {isLoading ? (
