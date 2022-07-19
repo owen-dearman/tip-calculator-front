@@ -12,9 +12,14 @@ export function HomePage(): JSX.Element {
         <li>Miscellaneous Price Adjustments</li>
         <li>Save Your Settings</li>
       </ul>
-      <Link to="/calculate">
-        <button className="submit-button">Get Started</button>
-      </Link>
+      <div className="button-container">
+        <Link to="/calculate">
+          <button className="submit-button">Get Started</button>
+        </Link>
+        <Link to="/index">
+          <button className="submit-button">View Saved</button>
+        </Link>
+      </div>
     </section>
   );
 }
