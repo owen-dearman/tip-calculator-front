@@ -18,5 +18,16 @@ export const calculatorReducer = (state: State, action: Action): State => {
         values: action.values,
         settings: action.settings,
       };
+    case "saved-settings":
+      return {
+        ...state,
+        savedSettings: action.settings,
+        isLoading: action.isLoading,
+      };
+    case "request":
+      return {
+        ...state,
+        isLoading: action.isLoading,
+      };
   }
 };

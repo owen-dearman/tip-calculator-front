@@ -8,7 +8,7 @@ import { calculatorReducer } from "./utils/calculatorReducer";
 import { defaultState } from "./utils/StateAction";
 
 function App(): JSX.Element {
-  const [{ settings, values }, dispatch] = useReducer(
+  const [{ savedSettings, settings, values, isLoading }, dispatch] = useReducer(
     calculatorReducer,
     defaultState
   );
@@ -22,7 +22,17 @@ function App(): JSX.Element {
       />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/index" element={<IndexPage />} />
+        <Route
+          path="/index"
+          element={
+            <IndexPage
+              navigate={navigate}
+              dispatch={dispatch}
+              savedSettings={savedSettings}
+              isLoading={isLoading}
+            />
+          }
+        />
         <Route
           path="/calculate"
           element={
@@ -36,7 +46,14 @@ function App(): JSX.Element {
         />
         <Route
           path="/total"
-          element={<Total settings={settings} values={values} />}
+          element={
+            <Total
+              settings={settings}
+              values={values}
+              dispatch={dispatch}
+              navigate={navigate}
+            />
+          }
         />
       </Routes>
     </div>

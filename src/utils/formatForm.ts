@@ -1,4 +1,4 @@
-export function formatForm(str: string): number {
+export function formatStringToNum(str: string): number {
   if (str !== "") {
     return parseFloat(str);
   }
@@ -10,4 +10,12 @@ export function addTrailingZeros(num: number): string {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   });
+}
+
+export function formatNumToString(num: number): string {
+  if (num === 0) {
+    return "";
+  } else {
+    return addTrailingZeros(num);
+  }
 }

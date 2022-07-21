@@ -1,14 +1,22 @@
-import { TipDiscountOptions } from "./utils/StateAction";
+import { Action, defaultState, TipDiscountOptions } from "./utils/StateAction";
 import { State } from "./utils/StateAction";
-import { addTrailingZeros } from "./formatForm";
-import { Link } from "react-router-dom";
+import { addTrailingZeros } from "./utils/formatForm";
+import { NavigateFunction } from "react-router-dom";
+import { Dispatch } from "react";
 
 interface TotalProps {
   settings: State["settings"];
   values: State["values"];
+  dispatch: Dispatch<Action>;
+  navigate: NavigateFunction;
 }
 
-export function Total({ settings, values }: TotalProps): JSX.Element {
+export function Total({
+  settings,
+  values,
+  dispatch,
+  navigate,
+}: TotalProps): JSX.Element {
   const totalAfterDiscount = handleDiscountOrTip(
     values.bill,
     values.discount,
@@ -23,6 +31,25 @@ export function Total({ settings, values }: TotalProps): JSX.Element {
   );
   const totalAfterMisc = totalAfterTip + values.misc;
   const grandTotal = handleRoundUp(totalAfterMisc, settings.roundUp);
+
+  function handleAnother() {
+    dispatch({
+      type: "reset-all",
+      settings: defaultState["settings"],
+      values: defaultState["values"],
+    });
+    navigate("/calculate");
+  }
+
+  function handleHome() {
+    dispatch({
+      type: "reset-all",
+      settings: defaultState["settings"],
+      values: defaultState["values"],
+    });
+    navigate("/");
+  }
+
   return (
     <div className="subpage-container">
       <h4 className="reduced-margin">
@@ -93,12 +120,20 @@ export function Total({ settings, values }: TotalProps): JSX.Element {
         {addTrailingZeros(grandTotal / settings.numPayee)}{" "}
       </h1>
       <div className="button-container">
-        <Link to="/calculate" style={{ margin: "3%" }}>
-          <button className="submit-button">Another</button>
-        </Link>
-        <Link to="/" style={{ margin: "3%" }}>
-          <button className="submit-button">Home</button>
-        </Link>
+        <button
+          style={{ margin: "3%" }}
+          className="submit-button"
+          onClick={handleAnother}
+        >
+          Another
+        </button>
+        <button
+          style={{ margin: "3%" }}
+          className="submit-button"
+          onClick={handleHome}
+        >
+          Home
+        </button>
       </div>
     </div>
   );
