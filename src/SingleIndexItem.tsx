@@ -63,8 +63,12 @@ export function SingleIndexItem({
         <h5>❓: {data.misc}</h5>
         {data.roundup ? <h5>🆙: ✔️</h5> : <h5>🆙: ❌</h5>}
       </div>
-      <button onClick={() => handleUse(data)}>Use</button>
-      <button onClick={() => handleDelete(data)}>Delete</button>
+      <button className="submit-button" onClick={() => handleUse(data)}>
+        Use
+      </button>
+      <button className="submit-button" onClick={() => handleDelete(data)}>
+        Delete
+      </button>
     </div>
   );
 }
