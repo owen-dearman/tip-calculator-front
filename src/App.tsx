@@ -46,7 +46,14 @@ function App(): JSX.Element {
         />
         <Route
           path="/total"
-          element={<Total settings={settings} values={values} />}
+          element={
+            <Total
+              settings={settings}
+              values={values}
+              dispatch={dispatch}
+              navigate={navigate}
+            />
+          }
         />
       </Routes>
     </div>
