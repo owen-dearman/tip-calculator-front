@@ -11,6 +11,7 @@ import {
   Tip,
 } from "./utils/CalculatorElements";
 import { Action, defaultState, State } from "./utils/StateAction";
+import { formatBill } from "./utils/formatBill";
 
 interface CalculatorProps {
   dispatch: Dispatch<Action>;
@@ -33,7 +34,7 @@ export function Calculator({
   values,
 }: CalculatorProps): JSX.Element {
   const defaultForm = {
-    bill: values.bill.toString(),
+    bill: formatBill(values.bill),
     tip: values.tip.toString(),
     discount: values.discount.toString(),
     misc: values.misc.toString(),
@@ -76,20 +77,22 @@ export function Calculator({
   return (
     <section className="subpage-container">
       <form onSubmit={handleSubmit}>
-        <Currency dispatch={dispatch} settings={settings} />
         <Bill updateForm={updateForm} form={form} />
+        <Currency dispatch={dispatch} settings={settings} />
         <Payees dispatch={dispatch} settings={settings} />
         <Discount
           dispatch={dispatch}
           updateForm={updateForm}
           settings={settings}
           form={form}
+          values={values}
         />
         <Tip
           dispatch={dispatch}
           updateForm={updateForm}
           settings={settings}
           form={form}
+          values={values}
         />
         <Offset updateForm={updateForm} form={form} />
         <RoundUp dispatch={dispatch} settings={settings} />

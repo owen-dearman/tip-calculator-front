@@ -6,6 +6,7 @@ import { Action, State } from "./StateAction";
 interface FullCalculatorProps {
   dispatch: Dispatch<Action>;
   settings: State["settings"];
+  values: State["values"];
   form: Form;
   updateForm: (arg0: string, arg1: string) => void;
 }
@@ -81,6 +82,7 @@ export function Payees({
         thumbClassName="slider-thumb"
         trackClassName="slider-track"
         renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+        defaultValue={settings.numPayee}
         marks={1}
         min={1}
         max={20}
@@ -100,6 +102,7 @@ export function Discount({
   settings,
   form,
   updateForm,
+  values,
 }: FullCalculatorProps): JSX.Element {
   return (
     <div>
@@ -156,6 +159,7 @@ export function Discount({
           renderThumb={(props, state) => (
             <div {...props}>{state.valueNow}%</div>
           )}
+          defaultValue={values.discount}
           marks={1}
           min={0}
           max={100}
@@ -171,6 +175,7 @@ export function Tip({
   settings,
   form,
   updateForm,
+  values,
 }: FullCalculatorProps): JSX.Element {
   return (
     <div>
@@ -227,6 +232,7 @@ export function Tip({
           renderThumb={(props, state) => (
             <div {...props}>{state.valueNow}%</div>
           )}
+          defaultValue={values.tip}
           marks={1}
           min={0}
           max={100}
