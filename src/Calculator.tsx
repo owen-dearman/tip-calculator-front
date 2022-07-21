@@ -85,7 +85,6 @@ export function Calculator({
       misc: formatStringToNum(form.misc),
       roundUp: settings.roundUp,
     };
-    console.log(savedSettings);
     await axios.post(url + "settings", savedSettings);
   }
 
