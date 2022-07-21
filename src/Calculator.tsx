@@ -1,6 +1,6 @@
 import React, { Dispatch, useState } from "react";
 import { Link, NavigateFunction } from "react-router-dom";
-import { formatForm } from "./formatForm";
+import { formatForm } from "./utils/formatForm";
 import {
   Bill,
   Currency,

@@ -1,6 +1,6 @@
 import { TipDiscountOptions } from "./utils/StateAction";
 import { State } from "./utils/StateAction";
-import { addTrailingZeros } from "./formatForm";
+import { addTrailingZeros } from "./utils/formatForm";
 import { Link } from "react-router-dom";
 
 interface TotalProps {

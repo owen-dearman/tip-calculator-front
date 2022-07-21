@@ -36,9 +36,8 @@ export function IndexPage({
         <div className="subpage-container">
           <h1>Loading...</h1>
         </div>
-      ) : (
+      ) : savedSettings.length > 0 ? (
         <div className="subpage-container">
-          {" "}
           {savedSettings.map((setting) => (
             <SingleIndexItem
               key={setting.id}
@@ -47,6 +46,10 @@ export function IndexPage({
               navigate={navigate}
             />
           ))}
+        </div>
+      ) : (
+        <div className="subpage-container">
+          <h1>No Saved Settings</h1>
         </div>
       )}
     </>
