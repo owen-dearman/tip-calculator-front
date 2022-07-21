@@ -1,7 +1,7 @@
 import { Action, defaultState, TipDiscountOptions } from "./utils/StateAction";
 import { State } from "./utils/StateAction";
 import { addTrailingZeros } from "./utils/formatForm";
-import { Navigate, NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { Dispatch } from "react";
 
 interface TotalProps {

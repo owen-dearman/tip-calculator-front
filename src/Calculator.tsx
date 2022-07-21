@@ -10,7 +10,7 @@ import {
   RoundUp,
   Tip,
 } from "./utils/CalculatorElements";
-import { Action, defaultState, State } from "./utils/StateAction";
+import { Action, State } from "./utils/StateAction";
 import { formatBill } from "./utils/formatBill";
 
 interface CalculatorProps {
@@ -35,9 +35,9 @@ export function Calculator({
 }: CalculatorProps): JSX.Element {
   const defaultForm = {
     bill: formatBill(values.bill),
-    tip: values.tip.toString(),
-    discount: values.discount.toString(),
-    misc: values.misc.toString(),
+    tip: formatBill(values.tip),
+    discount: formatBill(values.discount),
+    misc: formatBill(values.misc),
   };
 
   const [form, setForm] = useState<Form>(defaultForm);
@@ -60,18 +60,6 @@ export function Calculator({
       },
     });
     navigate("/total");
-  };
-
-  const clearAll = () => {
-    dispatch({
-      type: "set-values",
-      values: defaultState["values"],
-    });
-    dispatch({
-      type: "update-settings",
-      settings: defaultState["settings"],
-    });
-    setForm(defaultForm);
   };
 
   return (
@@ -101,9 +89,6 @@ export function Calculator({
         </button>
       </form>
       <div className="button-container">
-        <button className="submit-button" onClick={clearAll}>
-          Clear
-        </button>
         <Link to="/">
           <button className="submit-button" type="submit">
             Home
