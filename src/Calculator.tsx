@@ -1,6 +1,7 @@
 import React, { Dispatch, useState } from "react";
-import { Link, NavigateFunction } from "react-router-dom";
-import { formatForm } from "./utils/formatForm";
+import { url } from "./utils/urls";
+import { NavigateFunction } from "react-router-dom";
+import { formatStringToNum, formatNumToString } from "./utils/formatForm";
 import {
   Bill,
   Currency,
@@ -10,8 +11,8 @@ import {
   RoundUp,
   Tip,
 } from "./utils/CalculatorElements";
-import { Action, State } from "./utils/StateAction";
-import { formatBill } from "./utils/formatBill";
+import { Action, defaultState, State } from "./utils/StateAction";
+import axios from "axios";
 
 interface CalculatorProps {
   dispatch: Dispatch<Action>;
@@ -34,10 +35,10 @@ export function Calculator({
   values,
 }: CalculatorProps): JSX.Element {
   const defaultForm = {
-    bill: formatBill(values.bill),
-    tip: formatBill(values.tip),
-    discount: formatBill(values.discount),
-    misc: formatBill(values.misc),
+    bill: formatNumToString(values.bill),
+    tip: formatNumToString(values.tip),
+    discount: formatNumToString(values.discount),
+    misc: formatNumToString(values.misc),
   };
 
   const [form, setForm] = useState<Form>(defaultForm);
@@ -53,14 +54,40 @@ export function Calculator({
     dispatch({
       type: "set-values",
       values: {
-        bill: formatForm(form.bill),
-        tip: formatForm(form.tip),
-        misc: formatForm(form.misc),
-        discount: formatForm(form.discount),
+        bill: formatStringToNum(form.bill),
+        tip: formatStringToNum(form.tip),
+        misc: formatStringToNum(form.misc),
+        discount: formatStringToNum(form.discount),
       },
     });
     navigate("/total");
   };
+
+  function handleHome() {
+    dispatch({
+      type: "reset-all",
+      settings: defaultState["settings"],
+      values: defaultState["values"],
+    });
+    navigate("/");
+  }
+
+  async function handleSave() {
+    const title = prompt("Enter a title for your settings", "mySettings1");
+    const savedSettings = {
+      name: title,
+      currency: settings.currency,
+      numPayee: settings.numPayee,
+      discountType: settings.discountType,
+      tipType: settings.tipType,
+      discount: formatStringToNum(form.discount),
+      tip: formatStringToNum(form.tip),
+      misc: formatStringToNum(form.misc),
+      roundUp: settings.roundUp,
+    };
+    console.log(savedSettings);
+    await axios.post(url + "settings", savedSettings);
+  }
 
   return (
     <section className="subpage-container">
@@ -89,11 +116,12 @@ export function Calculator({
         </button>
       </form>
       <div className="button-container">
-        <Link to="/">
-          <button className="submit-button" type="submit">
-            Home
-          </button>
-        </Link>
+        <button className="submit-button" onClick={handleHome}>
+          Home
+        </button>
+        <button className="submit-button" onClick={handleSave}>
+          Save
+        </button>
       </div>
     </section>
   );
